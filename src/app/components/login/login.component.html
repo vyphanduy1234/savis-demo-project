@@ -1,1 +1,36 @@
-<p>login works!</p>
+<table>
+  <tr>
+    <td>Username:</td>
+    <td>
+      <input
+        placeholder="{{ U_PLACE_HOLDER }}"
+        id="name"
+        [(ngModel)]="user.username"
+        #name="ngModel"
+      />
+    </td>
+  </tr>
+  <tr>
+    <td>Password:</td>
+    <td>
+      <input
+        placeholder="{{ P_PLACE_HOLDER }}"
+        id="pass"
+        [(ngModel)]="user.password"
+        #name="ngModel"
+      />
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
+      <button
+      (click) = "login()"
+      >Login</button>
+    </td>
+  </tr>
+  <tr *ngIf="isError">
+    <td></td>
+    <td>wrong username or password</td>
+  </tr>
+</table>
