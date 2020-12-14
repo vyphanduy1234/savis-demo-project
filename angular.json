@@ -145,6 +145,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "savis-demo-project"
+    }
+  },
+  "defaultProject": "savis-demo-project",
+  "cli": {
+    "analytics": false
+  }
 }
