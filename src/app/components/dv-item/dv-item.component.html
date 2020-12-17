@@ -1,0 +1,24 @@
+<nz-card class="card" [nzTitle]="phongBan.name" [nzExtra]="extraTemplate">
+  <p>Id: {{ phongBan.id }}</p>
+  <p>Status: {{ phongBan.status }}</p>
+  <p>Created date: {{ phongBan.createdOnDate }}</p>
+</nz-card>
+<ng-template #extraTemplate>
+  <button
+    class="edit card-button"
+    (click)="showConfirm()"
+    nz-button
+    nzType="primary"
+  >
+    <i nz-icon nzType="edit"></i>Edit
+  </button>
+  <button
+    class="delete card-button"
+    (click)="showDeleteConfirm()"
+    nz-button
+    nzType="primary"
+    nzDanger
+  >
+    <i nz-icon nzType="close"></i>Delete
+  </button>
+</ng-template>
