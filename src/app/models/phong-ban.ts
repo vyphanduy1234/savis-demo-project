@@ -1,4 +1,4 @@
-export class User {
+export class PhongBan {
   id: string;
   code: string;
   name: string;

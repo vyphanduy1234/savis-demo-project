@@ -1,36 +1,54 @@
-<table>
-  <tr>
-    <td>Username:</td>
-    <td>
-      <input
-        placeholder="{{ U_PLACE_HOLDER }}"
-        id="name"
-        [(ngModel)]="user.username"
-        #name="ngModel"
-      />
-    </td>
-  </tr>
-  <tr>
-    <td>Password:</td>
-    <td>
-      <input
-        placeholder="{{ P_PLACE_HOLDER }}"
-        id="pass"
-        [(ngModel)]="user.password"
-        #name="ngModel"
-      />
-    </td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>
-      <button
-      (click) = "login()"
-      >Login</button>
-    </td>
-  </tr>
-  <tr *ngIf="isError">
-    <td></td>
-    <td>wrong username or password</td>
-  </tr>
-</table>
+<form
+  nz-form
+  [formGroup]="validateForm"
+  class="login-form"
+  (ngSubmit)="submitForm()"
+>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your username!">
+      <nz-input-group nzPrefixIcon="user">
+        <input
+          type="text"
+          nz-input
+          formControlName="userName"
+          placeholder="Username"
+          [(ngModel)]="user.username"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your Password!">
+      <nz-input-group nzPrefixIcon="lock">
+        <input
+          type="password"
+          nz-input
+          formControlName="password"
+          placeholder="Password"
+          [(ngModel)]="user.password"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <div nz-row class="login-form-margin">
+    <div nz-col [nzSpan]="12">
+      <label nz-checkbox formControlName="remember">
+        <span>Remember me</span>
+      </label>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <a class="login-form-forgot">Forgot password</a>
+    </div>
+  </div>
+  <button
+    nz-button
+    class="login-form-button login-form-margin"
+    nzType="primary"
+    type="submit"
+  >
+    Log in
+  </button>
+  Or <a> register now! </a>
+</form>
+<nz-spin [hidden]="isSpinnerShow" class="spin" nzTip="Loading...">
+</nz-spin>
