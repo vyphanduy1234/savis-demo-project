@@ -33,7 +33,7 @@
                [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
             ></i>
         </span>
-        <button nz-button nzType="primary">Log out</button>
+        <button (click)="logOut()" nz-button nzType="primary">Log out</button>
       </div>
     </nz-header>
     <nz-content>
