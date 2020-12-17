@@ -1,6 +1,6 @@
 import { BoardService } from './../../services/board.service';
 import { PhongBan } from './../../models/phong-ban';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
@@ -10,7 +10,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrls: ['./dv-item.component.less'],
 })
 export class DvItemComponent implements OnInit {
+  isInEditMode = false;
   @Input() phongBan: PhongBan;
+  @Output() dataChanged: EventEmitter<any> = new EventEmitter<any>();
+
   constructor(
     private modal: NzModalService,
     private boardService: BoardService,
@@ -34,27 +37,45 @@ export class DvItemComponent implements OnInit {
   }
 
   deleteObject: string[];
-
   delete() {
-    this.createMessage('success');
     this.deleteObject = [];
     this.deleteObject.push(this.phongBan.id);
-    console.log(this.deleteObject);
 
-    this.boardService
-      .deletePhongBan(this.deleteObject)
-      .subscribe((mess) => console.log(mess));
+    this.boardService.deletePhongBan(this.deleteObject).subscribe(
+      (data) => {
+        if(data.result == "false"){
+          this.createMessage('success');
+          this.dataChanged.emit();
+        }else{
+          this.createMessage('error');
+        }
+      },
+      (error) => {
+        this.createMessage('error');
+      }
+    );
   }
 
-  showConfirm(): void {
+  edit(phongBan){
+    console.log(phongBan);
+
+    this.boardService.updatePhongBan(phongBan).subscribe(data => console.log(data));
+  }
+
+  showConfirmEdit(): void {
     this.modal.confirm({
-      nzTitle: '<i>Do you Want to delete these items?</i>',
+      nzTitle: `<i>Chỉnh sửa</i>`,
       nzContent: '<b>Dữ liệu sẽ không được khôi phục</b>',
       nzOnOk: () => console.log('OK'),
     });
   }
 
+  turnOnEditMode() {
+    this.isInEditMode = !this.isInEditMode;
+  }
+
   createMessage(type: string): void {
-    this.message.create(type, 'delete success');
+    if (type == 'success') this.message.create(type, 'delete success');
+    if (type == 'error') this.message.create(type, 'delete fail');
   }
 }

@@ -30,7 +30,14 @@ export class BoardService {
       headers: this.headers_object,
       body: phongBan
     };
-    console.log(phongBan);
     return this.httpClient.delete(Global.API_DELTETE,httpOptions);
+  }
+
+  updatePhongBan(phongBan): Observable<any> {
+    const httpOptions = {
+      headers: this.headers_object,
+    };
+    // console.log(phongBan)
+    return this.httpClient.put(Global.API_UPDATE,phongBan,httpOptions);
   }
 }

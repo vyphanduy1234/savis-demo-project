@@ -26,6 +26,7 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { FormComponent } from './components/form/form.component';
 registerLocaleData(en);
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ registerLocaleData(en);
     AddComponent,
     HomeComponent,
     DvItemComponent,
+    FormComponent,
   ],
   imports: [
     BrowserModule,
