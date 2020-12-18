@@ -4,6 +4,11 @@
   class="login-form"
   (ngSubmit)="submitForm()"
 >
+  <img
+    class="login-logo"
+    src="https://savis.vn/wp-content/uploads/2020/09/SAVIS-logo-web-01.svg"
+    alt="logo"
+  />
   <nz-form-item>
     <nz-form-control nzErrorTip="Please input your username!">
       <nz-input-group nzPrefixIcon="user">
@@ -50,5 +55,4 @@
   </button>
   Or <a> register now! </a>
 </form>
-<nz-spin [hidden]="isSpinnerShow" class="spin" nzTip="Loading...">
-</nz-spin>
+<nz-spin [hidden]="isSpinnerShow" class="spin" nzTip="Loading..."> </nz-spin>

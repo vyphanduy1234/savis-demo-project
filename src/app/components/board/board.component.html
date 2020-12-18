@@ -1,3 +1,8 @@
 <div>
-  <app-dv-item (dataChanged)="getListPhongBan()" *ngFor="let item of arrPhongBan" [phongBan]="item"></app-dv-item>
+  <app-dv-item
+    (dataChanged)="getListPhongBan()"
+    *ngFor="let item of arrPhongBan"
+    [phongBan]="item"
+  ></app-dv-item>
+  <nz-spin [hidden]="!isDataLoading"></nz-spin>
 </div>

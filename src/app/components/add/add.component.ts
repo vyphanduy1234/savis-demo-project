@@ -1,71 +1,81 @@
+import { BoardService } from './../../services/board.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { Observer, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-show',
   templateUrl: './add.component.html',
-  styleUrls: ['./add.component.less']
+  styleUrls: ['./add.component.less'],
 })
 export class AddComponent implements OnInit {
-
   validateForm: FormGroup;
-
-  submitForm(value: { userName: string; email: string; password: string; confirm: string; comment: string }): void {
+  submitForm(value: {
+    id: string;
+    email: string;
+    name: string;
+    phone: string;
+  }): void {
     for (const key in this.validateForm.controls) {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     }
-    console.log(value);
-  }
-
-  resetForm(e: MouseEvent): void {
-    e.preventDefault();
-    this.validateForm.reset();
-    for (const key in this.validateForm.controls) {
-      this.validateForm.controls[key].markAsPristine();
-      this.validateForm.controls[key].updateValueAndValidity();
+    if (this.validateForm.valid) {
     }
   }
 
-  validateConfirmPassword(): void {
-    setTimeout(() => this.validateForm.controls.confirm.updateValueAndValidity());
-  }
-
-  userNameAsyncValidator = (control: FormControl) =>
-    new Observable((observer: Observer<ValidationErrors | null>) => {
-      setTimeout(() => {
-        if (control.value === 'JasonWood') {
-          // you have to return `{error: true}` to mark it as an error event
-          observer.next({ error: true, duplicated: true });
-        } else {
-          observer.next(null);
-        }
-        observer.complete();
-      }, 1000);
+  constructor(private fb: FormBuilder, private mService: BoardService) {
+    this.validateForm = this.fb.group({
+      email: ['', [Validators.email, Validators.required]],
+      phone: ['', [Validators.required, this.isMobile]],
+      name: ['', [Validators.required]],
+      id: ['', [Validators.required]],
     });
+  }
 
-  confirmValidator = (control: FormControl): { [s: string]: boolean } => {
-    if (!control.value) {
-      return { error: true, required: true };
-    } else if (control.value !== this.validateForm.controls.password.value) {
-      return { confirm: true, error: true };
-    }
-    return {};
+  isMobile = (control: FormControl): { [s: string]: boolean } => {
+    return typeof control.value === 'string' && /^[1-9]{10}/.test(control.value)
+      ? null
+      : { wrong: true };
   };
 
-  constructor(private fb: FormBuilder) {
-    this.validateForm = this.fb.group({
-      userName: ['', [Validators.required], [this.userNameAsyncValidator]],
-      email: ['', [Validators.email, Validators.required]],
-      password: ['', [Validators.required]],
-      confirm: ['', [this.confirmValidator]],
-      comment: ['', [Validators.required]]
+  ngOnInit(): void {
+    this.fetchData();
+  }
+
+  arrProvince: any = [];
+  fetchData() {
+    this.mService
+      .fetchListProvince()
+      .subscribe((data) => (this.arrProvince = data.data));
+  }
+
+  isDistrictLoaded = false;
+  arrDistrict: any = [];
+  choseProvince(provinceId) {
+
+    this.mService.fetchDistrictWithProvince(provinceId).subscribe((data) => {
+      console.log(data);
+
+      this.arrDistrict = data;
+      this.isDistrictLoaded = true;
     });
   }
 
- ngOnInit(): void{
+  isCommuneLoaded = false;
+  arrCommune: any = [];
+  choseDistrict(DistrictId) {
+    this.mService.fetchCommuneWithDistrict(DistrictId).subscribe((data) => {
+      console.log(data);
 
- }
-
+      this.arrCommune = data;
+      this.isCommuneLoaded = true;
+    });
+  }
 }

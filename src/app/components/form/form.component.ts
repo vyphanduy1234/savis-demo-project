@@ -42,14 +42,6 @@ export class FormComponent implements OnInit {
     }
   }
 
-  resetForm(e: MouseEvent): void {
-    e.preventDefault();
-    this.validateForm.reset();
-    for (const key in this.validateForm.controls) {
-      this.validateForm.controls[key].markAsPristine();
-      this.validateForm.controls[key].updateValueAndValidity();
-    }
-  }
 
   constructor(private fb: FormBuilder) {
     this.validateForm = this.fb.group({

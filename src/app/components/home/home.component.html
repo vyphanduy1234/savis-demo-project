@@ -1,17 +1,28 @@
 <nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar"
-            nzCollapsible
-            nzWidth="256px"
-            nzBreakpoint="md"
-            [(nzCollapsed)]="isCollapsed"
-            [nzTrigger]="null">
+  <nz-sider
+    class="menu-sidebar"
+    nzCollapsible
+    nzWidth="256px"
+    nzBreakpoint="md"
+    [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null"
+  >
     <div class="sidebar-logo">
       <a href="https://ng.ant.design/" target="_blank">
-        <img style="width: 100px; height: 100px;" src="https://savis.vn/wp-content/uploads/2020/09/SAVIS-logo-web-01.svg" alt="logo">
+        <img
+          style="width: 100px; height: 100px"
+          src="https://savis.vn/wp-content/uploads/2020/09/SAVIS-logo-web-01.svg"
+          alt="logo"
+        />
         <h1>TRAINING</h1>
       </a>
     </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+    <ul
+      nz-menu
+      nzTheme="dark"
+      nzMode="inline"
+      [nzInlineCollapsed]="isCollapsed"
+    >
       <li nz-submenu nzOpen nzTitle="Main Function" nzIcon="dashboard">
         <ul>
           <li nz-menu-item nzMatchRouter>
@@ -28,10 +39,11 @@
     <nz-header>
       <div class="app-header">
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-            <i class="trigger"
-               nz-icon
-               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-            ></i>
+          <i
+            class="trigger"
+            nz-icon
+            [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+          ></i>
         </span>
         <button (click)="logOut()" nz-button nzType="primary">Log out</button>
       </div>

@@ -10,4 +10,11 @@ export class Global {
   'http://183.81.32.66:8001/api/v1/cms/organization-v2';
   public static API_UPDATE: string =
   'http://183.81.32.66:8001/api/v1/cms/organization-v2';
+  public static API_GET_ALL_PROVINCE: string =
+  'http://183.81.32.66:8001/api/v1/res/province/all';
+  public static API_GET_DISTRICT_WITH_PROVINCE: string =
+  'http://183.81.32.66:8001/api/v1/res/district/for-combobox';
+  public static API_GET_COMMUNE_WITH_DISTRICT: string =
+  'http://183.81.32.66:8001/api/v1/res/commune/for-combobox';
+
 }

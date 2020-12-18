@@ -1,22 +1,26 @@
-<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
+<form
+  nz-form
+  [formGroup]="validateForm"
+  (ngSubmit)="submitForm(validateForm.value)"
+>
+  <!-- id  -->
   <nz-form-item>
-    <nz-form-label [nzSpan]="7" nzRequired>Username</nz-form-label>
-    <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
-      <input nz-input formControlName="userName" placeholder="async validate try to write JasonWood" />
-      <ng-template #userErrorTpl let-control>
-        <ng-container *ngIf="control.hasError('required')">
-          Please input your username!
-        </ng-container>
-        <ng-container *ngIf="control.hasError('duplicated')">
-          The username is redundant!
-        </ng-container>
-      </ng-template>
+    <nz-form-label [nzSpan]="7" nzRequired>Id</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzHasFeedback>
+      <input readonly nz-input formControlName="id" placeholder="id" />
     </nz-form-control>
   </nz-form-item>
+
+  <!-- e-mail -->
   <nz-form-item>
     <nz-form-label [nzSpan]="7" nzRequired>E-mail</nz-form-label>
     <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="emailErrorTpl">
-      <input nz-input formControlName="email" placeholder="email" type="email" />
+      <input
+        nz-input
+        formControlName="email"
+        placeholder="email"
+        type="email"
+      />
       <ng-template #emailErrorTpl let-control>
         <ng-container *ngIf="control.hasError('email')">
           The input is not valid E-mail!
@@ -27,36 +31,131 @@
       </ng-template>
     </nz-form-control>
   </nz-form-item>
+
+  <!-- phone -->
   <nz-form-item>
-    <nz-form-label [nzSpan]="7" nzRequired>Password</nz-form-label>
-    <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Please input your password!">
-      <input nz-input type="password" formControlName="password" (ngModelChange)="validateConfirmPassword()" />
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label [nzSpan]="7" nzRequired>Confirm Password</nz-form-label>
-    <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="passwordErrorTpl">
-      <input nz-input type="password" formControlName="confirm" placeholder="confirm your password" />
-      <ng-template #passwordErrorTpl let-control>
+    <nz-form-label [nzSpan]="7" nzRequired>Phone number</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="nbFormat">
+      <input nz-input type="tel" formControlName="phone" />
+      <ng-template let-control>
         <ng-container *ngIf="control.hasError('required')">
-          Please confirm your password!
+          Please input number!
         </ng-container>
-        <ng-container *ngIf="control.hasError('confirm')">
-          Password is inconsistent!
+      </ng-template>
+      <ng-template #nbFormat let-control>
+        <ng-container *ngIf="control.hasError('wrong')">
+          Wrong number format!
         </ng-container>
       </ng-template>
     </nz-form-control>
   </nz-form-item>
+
+  <!-- name -->
   <nz-form-item>
-    <nz-form-label [nzSpan]="7" nzRequired>Comment</nz-form-label>
-    <nz-form-control [nzSpan]="12" nzErrorTip="Please write something here!">
-      <textarea formControlName="comment" nz-input rows="2" placeholder="write any thing"></textarea>
+    <nz-form-label [nzSpan]="7" nzRequired>Name:</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzHasFeedback>
+      <input nz-input formControlName="name" placeholder="input name" />
+      <ng-template #passwordErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          Please input name!
+        </ng-container>
+      </ng-template>
     </nz-form-control>
   </nz-form-item>
+
+  <!-- province -->
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7" nzRequired>Province:</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzHasFeedback>
+      <button
+        nzTrigger="click"
+        nz-button
+        nz-dropdown
+        [nzDropdownMenu]="provinceMenu"
+      >
+        Button
+        <i nz-icon nzType="down"></i>
+      </button>
+      <nz-dropdown-menu #provinceMenu="nzDropdownMenu">
+        <ul nz-menu>
+          <li
+            (click)="choseProvince(item.id)"
+            nz-menu-item
+            *ngFor="let item of arrProvince"
+          >
+            {{ item.name }}
+          </li>
+        </ul>
+      </nz-dropdown-menu>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- district -->
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7" nzRequired>District:</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzHasFeedback>
+      <button
+        [disabled]="!isDistrictLoaded"
+        nzTrigger="click"
+        nz-button
+        nz-dropdown
+        [nzDropdownMenu]="districtMenu"
+      >
+        Button
+        <i nz-icon nzType="down"></i>
+      </button>
+      <nz-dropdown-menu #districtMenu="nzDropdownMenu">
+        <ul nz-menu>
+          <li
+          nz-menu-item
+            (click)="choseDistrict(item.id)"
+            *ngFor="let item of arrDistrict"
+          >
+            {{ item.name }}
+          </li>
+        </ul>
+      </nz-dropdown-menu>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- commune -->
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7" nzRequired>Commune:</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzHasFeedback>
+      <button
+        [disabled]="!isCommuneLoaded"
+        nzTrigger="click"
+        nz-button
+        nz-dropdown
+        [nzDropdownMenu]="communeMenu"
+      >
+        Button
+        <i nz-icon nzType="down"></i>
+      </button>
+      <nz-dropdown-menu #communeMenu="nzDropdownMenu">
+        <ul nz-menu>
+          <li
+          nz-menu-item
+            *ngFor="let item of arrCommune"
+          >
+            {{ item.name }}
+          </li>
+        </ul>
+      </nz-dropdown-menu>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- button  -->
   <nz-form-item>
     <nz-form-control [nzOffset]="7" [nzSpan]="12">
-      <button nz-button nzType="primary" [disabled]="!validateForm.valid">Submit</button>
-      <button nz-button (click)="resetForm($event)">Reset</button>
+      <button
+        nz-button
+        type="submit"
+        nzType="primary"
+        [disabled]="!validateForm.valid"
+      >
+        Submit
+      </button>
     </nz-form-control>
   </nz-form-item>
 </form>
