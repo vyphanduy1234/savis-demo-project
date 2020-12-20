@@ -3,11 +3,11 @@
   [formGroup]="validateForm"
   (ngSubmit)="submitForm(validateForm.value)"
 >
-  <!-- id  -->
+  <!-- code  -->
   <nz-form-item>
-    <nz-form-label [nzSpan]="7" nzRequired>Id</nz-form-label>
+    <nz-form-label [nzSpan]="7" nzRequired>Code</nz-form-label>
     <nz-form-control [nzSpan]="12" nzHasFeedback>
-      <input readonly nz-input formControlName="id" placeholder="id" />
+      <input nz-input formControlName="code" placeholder="vd: 123456" />
     </nz-form-control>
   </nz-form-item>
 
@@ -18,7 +18,7 @@
       <input
         nz-input
         formControlName="email"
-        placeholder="email"
+        placeholder="vd: phanduyvy@savis.com"
         type="email"
       />
       <ng-template #emailErrorTpl let-control>
@@ -36,7 +36,7 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="7" nzRequired>Phone number</nz-form-label>
     <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="nbFormat">
-      <input nz-input type="tel" formControlName="phone" />
+      <input nz-input type="tel" formControlName="phone" placeholder="vd: 0985245632"/>
       <ng-template let-control>
         <ng-container *ngIf="control.hasError('required')">
           Please input number!
@@ -52,9 +52,9 @@
 
   <!-- name -->
   <nz-form-item>
-    <nz-form-label [nzSpan]="7" nzRequired>Name:</nz-form-label>
+    <nz-form-label [nzSpan]="7" nzRequired>Name</nz-form-label>
     <nz-form-control [nzSpan]="12" nzHasFeedback>
-      <input nz-input formControlName="name" placeholder="input name" />
+      <input nz-input formControlName="name" placeholder="vd: Phan Duy Vy" />
       <ng-template #passwordErrorTpl let-control>
         <ng-container *ngIf="control.hasError('required')">
           Please input name!
@@ -65,83 +65,63 @@
 
   <!-- province -->
   <nz-form-item>
-    <nz-form-label [nzSpan]="7" nzRequired>Province:</nz-form-label>
-    <nz-form-control [nzSpan]="12" nzHasFeedback>
-      <button
-        nzTrigger="click"
-        nz-button
-        nz-dropdown
-        [nzDropdownMenu]="provinceMenu"
+    <nz-form-label [nzSpan]="7" nzRequired>Province</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+      <nz-select
+        [(ngModel)]="selectedProvince"
+        (ngModelChange)="choseProvince($event)"
+        nzAllowClear
+        nzPlaceHolder="Choose"
+        [ngModelOptions]="{ standalone: true }"
       >
-        Button
-        <i nz-icon nzType="down"></i>
-      </button>
-      <nz-dropdown-menu #provinceMenu="nzDropdownMenu">
-        <ul nz-menu>
-          <li
-            (click)="choseProvince(item.id)"
-            nz-menu-item
-            *ngFor="let item of arrProvince"
-          >
-            {{ item.name }}
-          </li>
-        </ul>
-      </nz-dropdown-menu>
+        <nz-option
+          *ngFor="let item of arrProvince"
+          [nzValue]="item.id"
+          [nzLabel]="item.name"
+        ></nz-option>
+      </nz-select>
     </nz-form-control>
   </nz-form-item>
 
   <!-- district -->
   <nz-form-item>
-    <nz-form-label [nzSpan]="7" nzRequired>District:</nz-form-label>
-    <nz-form-control [nzSpan]="12" nzHasFeedback>
-      <button
+    <nz-form-label [nzSpan]="7" nzRequired>District</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+      <nz-select
+        [(ngModel)]="selectedDistrict"
+        (ngModelChange)="choseDistrict($event)"
+        nzAllowClear
+        nzPlaceHolder="Choose"
         [disabled]="!isDistrictLoaded"
-        nzTrigger="click"
-        nz-button
-        nz-dropdown
-        [nzDropdownMenu]="districtMenu"
+        [ngModelOptions]="{ standalone: true }"
       >
-        Button
-        <i nz-icon nzType="down"></i>
-      </button>
-      <nz-dropdown-menu #districtMenu="nzDropdownMenu">
-        <ul nz-menu>
-          <li
-          nz-menu-item
-            (click)="choseDistrict(item.id)"
-            *ngFor="let item of arrDistrict"
-          >
-            {{ item.name }}
-          </li>
-        </ul>
-      </nz-dropdown-menu>
+        <nz-option
+          *ngFor="let item of arrDistrict"
+          [nzValue]="item.id"
+          [nzLabel]="item.name"
+        ></nz-option>
+      </nz-select>
     </nz-form-control>
   </nz-form-item>
 
   <!-- commune -->
   <nz-form-item>
-    <nz-form-label [nzSpan]="7" nzRequired>Commune:</nz-form-label>
-    <nz-form-control [nzSpan]="12" nzHasFeedback>
-      <button
+    <nz-form-label [nzSpan]="7" nzRequired>Commune</nz-form-label>
+    <nz-form-control [nzSpan]="12">
+      <nz-select
+        [(ngModel)]="selectedCommune"
+        (ngModelChange)="choseCommune($event)"
+        nzAllowClear
+        nzPlaceHolder="Choose"
         [disabled]="!isCommuneLoaded"
-        nzTrigger="click"
-        nz-button
-        nz-dropdown
-        [nzDropdownMenu]="communeMenu"
+        [ngModelOptions]="{ standalone: true }"
       >
-        Button
-        <i nz-icon nzType="down"></i>
-      </button>
-      <nz-dropdown-menu #communeMenu="nzDropdownMenu">
-        <ul nz-menu>
-          <li
-          nz-menu-item
-            *ngFor="let item of arrCommune"
-          >
-            {{ item.name }}
-          </li>
-        </ul>
-      </nz-dropdown-menu>
+        <nz-option
+          *ngFor="let item of arrCommune"
+          [nzValue]="item.id"
+          [nzLabel]="item.name"
+        ></nz-option>
+      </nz-select>
     </nz-form-control>
   </nz-form-item>
 
@@ -152,7 +132,12 @@
         nz-button
         type="submit"
         nzType="primary"
-        [disabled]="!validateForm.valid"
+        [disabled]="
+          !validateForm.valid ||
+          !isProvinceChosen ||
+          !isDistrictChosen ||
+          !isCommueChosen
+        "
       >
         Submit
       </button>

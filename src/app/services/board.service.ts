@@ -41,6 +41,13 @@ export class BoardService {
     return this.httpClient.put(Global.API_UPDATE, phongBan, httpOptions);
   }
 
+  addPhongBan(phongBan): Observable<any> {
+    const httpOptions = {
+      headers: this.headers_object
+    };
+    return this.httpClient.post(Global.API_ADD,phongBan, httpOptions);
+  }
+
   fetchListProvince(): Observable<any> {
     const httpOptions = {
       headers: this.headers_object,

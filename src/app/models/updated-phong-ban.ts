@@ -52,7 +52,5 @@ export class UpdatedPhongBan {
     this.createdOnDate = '2020-12-17T06:28:12.066Z';
     this.areaOperationId = 'string';
     this.areaOperationName = 'string';
-    this.parentId = 'string';
-    this.parentOrganizationName = 'string';
   }
 }
