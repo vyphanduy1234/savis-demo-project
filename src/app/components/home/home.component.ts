@@ -1,3 +1,4 @@
+import { Global } from './../../global/global';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -10,10 +11,14 @@ export class HomeComponent implements OnInit {
   isCollapsed = false;
   constructor(private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (localStorage.getItem(Global.JWT_KEY) == null) {
+      this.router.navigate(['/login']);
+    }
+  }
 
-  logOut(){
-    localStorage.clear()
-    this.router.navigate(['/login'])
+  logOut() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 }
