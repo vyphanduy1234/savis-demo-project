@@ -43,23 +43,34 @@ export class DvItemComponent implements OnInit {
 
     this.boardService.deletePhongBan(this.deleteObject).subscribe(
       (data) => {
-        if(data.result == "false"){
-          this.createMessage('success');
+        console.log(data);
+
+        if(data.code == 200){
+          this.createMessage('success','Delete');
           this.dataChanged.emit();
         }else{
-          this.createMessage('error');
+          this.createMessage('error','Delete');
         }
       },
       (error) => {
-        this.createMessage('error');
+        this.createMessage('error','Delete');
       }
     );
   }
 
-  edit(phongBan){
-    console.log(phongBan);
+  update(phongBan){
 
-    this.boardService.updatePhongBan(phongBan).subscribe(data => console.log(data));
+    this.boardService.updatePhongBan(phongBan).subscribe((data) => {
+      if(data.code == 200){
+        this.createMessage('success','Update');
+        this.dataChanged.emit();
+      }else{
+        this.createMessage('error','Update');
+      }
+    },
+    (error) => {
+      this.createMessage('error','Update');
+    });
   }
 
   showConfirmEdit(): void {
@@ -74,8 +85,8 @@ export class DvItemComponent implements OnInit {
     this.isInEditMode = !this.isInEditMode;
   }
 
-  createMessage(type: string): void {
-    if (type == 'success') this.message.create(type, 'delete success');
-    if (type == 'error') this.message.create(type, 'delete fail');
+  createMessage(type: string,message: string): void {
+    if (type == 'success') this.message.create(type, `${message} success`);
+    if (type == 'error') this.message.create(type, `${message} fail`);
   }
 }
