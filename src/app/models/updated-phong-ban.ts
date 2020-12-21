@@ -28,7 +28,7 @@ export class UpdatedPhongBan {
   parentOrganizationName: string;
 
   constructor() {
-    this.modifiedUserId = 'string';
+    this.modifiedUserId = '00000000-0000-0000-0000-000000000001';
     this.phoneNumber = '';
     this.fax = 'string';
     this.email = '';
@@ -37,22 +37,22 @@ export class UpdatedPhongBan {
     this.type = 0;
     this.typeName = 'string';
     this.logoUrl = 'string';
-    this.provinceId = 'string';
+    this.provinceId = null;
     this.provinceName = 'string';
-    this.districtId = 'string';
+    this.districtId = null;
     this.districtName = 'string';
-    this.communeId = 'string';
-    this.communeName = 'string';
-    this.id = 'string';
-    this.code = 'string';
+    this.communeId = null;
+    this.communeName = null;
+    this.id = null;
+    this.code = null;
     this.name = '';
     this.status = true;
     this.order = 0;
     this.description = 'string';
     this.createdOnDate = '2020-12-17T06:28:12.066Z';
-    this.areaOperationId = 'string';
-    this.areaOperationName = 'string';
-    this.parentId = 'string';
-    this.parentOrganizationName = 'string';
+    this.areaOperationId = null;
+    this.areaOperationName = null;
+    this.parentId = null;
+    this.parentOrganizationName = null;
   }
 }

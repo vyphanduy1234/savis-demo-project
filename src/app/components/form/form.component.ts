@@ -16,7 +16,7 @@ import { UpdatedPhongBan } from 'src/app/models/updated-phong-ban';
   styleUrls: ['./form.component.less'],
 })
 export class FormComponent implements OnInit {
-  editedPhongBan: UpdatedPhongBan = new UpdatedPhongBan();
+  updatedPhongBan: UpdatedPhongBan;
   @Input() phongBan: PhongBan;
   @Output() onEdit: EventEmitter<any> = new EventEmitter<any>();
 
@@ -32,16 +32,9 @@ export class FormComponent implements OnInit {
       this.validateForm.controls[key].updateValueAndValidity();
     }
     if (this.validateForm.valid) {
-      this.editedPhongBan.modifiedUserId = this.editedPhongBan.id;
-      this.editedPhongBan.provinceId = this.editedPhongBan.id;
-      this.editedPhongBan.districtId = this.editedPhongBan.id;
-      this.editedPhongBan.communeId = this.editedPhongBan.id;
-      this.editedPhongBan.areaOperationId = this.editedPhongBan.id;
-      this.editedPhongBan.parentId = this.editedPhongBan.id;
-      this.onEdit.emit(this.editedPhongBan);
+      this.onEdit.emit(this.updatedPhongBan);
     }
   }
-
 
   constructor(private fb: FormBuilder) {
     this.validateForm = this.fb.group({
@@ -59,7 +52,11 @@ export class FormComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.editedPhongBan.id = this.phongBan.id;
-    this.editedPhongBan.name = this.phongBan.name;
+    this.updatedPhongBan = new UpdatedPhongBan();
+    this.updatedPhongBan.id = this.phongBan.id;
+    this.updatedPhongBan.name = this.phongBan.name;
+    this.updatedPhongBan.code = this.phongBan.code;
+    this.updatedPhongBan.status = this.phongBan.status;
+    this.updatedPhongBan.createdOnDate = this.phongBan.createdOnDate;
   }
 }

@@ -10,6 +10,8 @@ export class Global {
   'http://183.81.32.66:8001/api/v1/cms/organization-v2';
   public static API_UPDATE: string =
   'http://183.81.32.66:8001/api/v1/cms/organization-v2';
+  public static API_ADD: string =
+  'http://183.81.32.66:8001/api/v1/cms/organization-v2';
   public static API_GET_ALL_PROVINCE: string =
   'http://183.81.32.66:8001/api/v1/res/province/all';
   public static API_GET_DISTRICT_WITH_PROVINCE: string =
