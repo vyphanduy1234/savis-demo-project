@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     if (localStorage.getItem(Global.JWT_KEY) == null) {
+
       this.router.navigate(['/login']);
     }
   }
